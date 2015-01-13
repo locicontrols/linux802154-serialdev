@@ -36,16 +36,6 @@ void give_to_linux(volatile packet_t *p) {
 
 }
 
-/* Baud rate */
-#define MOD 9999
-/*  230400 bps, INC=767, MOD=9999, 24Mhz 16x samp */
-/*  115200 bps, INC=767, MOD=9999, 24Mhz 8x samp */
-#define INC 767  
-/*  921600 bps, MOD=9999, 24Mhz 16x samp */
-//#define INC 3071 
-#define SAMP UCON_SAMP_8X
-//#define SAMP UCON_SAMP_16X
-
 /* How long to wait for command bytes */
 #define GETC_TIMEOUT  4096
 /* linux uses channels 1-16 the maca driver expects 0-15 */
@@ -77,7 +67,7 @@ void main(void) {
 	volatile packet_t *p = 0;
 
 	trim_xtal();
-	uart1_init(INC, MOD, SAMP);
+	uart_init(UART1, 115200);
 	maca_init();
 	maca_off();
 
